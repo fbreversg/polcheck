@@ -9,13 +9,12 @@ from resources.politicos import PoliticosAPI
 from resources.csv_import import CSVImportAPI
 
 # Config
-from common.api_errors import API_ERRORS
 from common.config import MAX_UPLOAD_SIZE
 
 # Flask singleton
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = MAX_UPLOAD_SIZE
-api = Api(app, catch_all_404s=True, errors=API_ERRORS)
+api = Api(app)
 
 
 # Routes
@@ -27,4 +26,4 @@ api.add_resource(PoliticoAPI, '/polcheck/politicos/<id>', endpoint='politico')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
