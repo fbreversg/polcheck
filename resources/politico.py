@@ -3,17 +3,17 @@ from flask_restful import Resource
 
 class PoliticoAPI(Resource):
     """ PoliticoAPI skeleton """
-    
+
     def put(self, id):
-        pass
+        return {'PoliticoAPI': 'PUT test OK'}
 
     def post(self, id):
-        pass
+        return {'PoliticoAPI': 'POST test OK'}
 
     # Improvement
     def get(self, id):
-        pass
+        return {'PoliticoAPI': 'GET test OK'}
 
     # Improvement
     def delete(self, id):
-        pass
+        return {'PoliticoAPI': 'DELETE test OK'}

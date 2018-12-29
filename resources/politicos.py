@@ -5,5 +5,5 @@ class PoliticosAPI(Resource):
     """ PoliticosAPI skeleton """
 
     def get(self):
-        pass
+        return {'PoliticosAPI': 'GET test OK'}
 

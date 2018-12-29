@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "107e35b9-c44d-4a56-bb26-86d0e3c906e4",
+		"name": "PolCheck",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/index",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/import",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/import",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/create/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"create",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update<params>",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/update/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "politicos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/polcheck/politicos",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"polcheck",
+						"politicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "politico",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/polcheck/politicos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"polcheck",
+						"politicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "politico",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/polcheck/politicos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"polcheck",
+						"politicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "politico",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/polcheck/politicos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"polcheck",
+						"politicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "politico",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/polcheck/politicos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"polcheck",
+						"politicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
