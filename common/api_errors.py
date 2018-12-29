@@ -1,6 +1,6 @@
-""" Custom errors"""
+""" Custom API errors"""
 
-errors = {
+API_ERRORS = {
     'ErrorA': {
         'message': "Mensaje",
         'status': 400,

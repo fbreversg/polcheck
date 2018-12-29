@@ -9,19 +9,14 @@ from resources.politicos import PoliticosAPI
 from resources.csv_import import CSVImportAPI
 
 # Config
-import common.api_errors
+from common.api_errors import API_ERRORS
+from common.config import MAX_UPLOAD_SIZE
 
 # Flask singleton
 app = Flask(__name__)
-api = Api(app, catch_all_404s=True, errors=common.api_errors)
+app.config['MAX_CONTENT_LENGTH'] = MAX_UPLOAD_SIZE
+api = Api(app, catch_all_404s=True, errors=API_ERRORS)
 
-
-def log_exception(sender, exception, **extra):
-    """ Log an exception to our logging framework """
-    sender.logger.debug('Got exception during processing: %s', exception)
-
-
-got_request_exception.connect(log_exception, app)
 
 # Routes
 api.add_resource(CSVImportAPI, '/import', '/polcheck/import', endpoint='import')
