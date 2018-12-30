@@ -1,6 +1,5 @@
 import os
 from common.config import UPLOAD_DIR
-from common.api_errors import API_ERRORS
 from flask_restful import Resource
 from flask import abort, request
 from werkzeug.utils import secure_filename
