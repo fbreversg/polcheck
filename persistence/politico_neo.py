@@ -28,9 +28,9 @@ MATCH_POLITICOS = 'MATCH (p:Politico) RETURN PROPERTIES(p) AS `data` LIMIT 50'
 def get_politico(uuid):
 
     with driver.session() as session:
-        politico_record = session.run(MATCH_POLITICO, uuid=uuid)
+        politico_record = session.run(MATCH_POLITICO, uuid=uuid).single()
         if politico_record:
-            return dumps(politico.data())
+            return politico_record.data()
         else:
             return None
 
@@ -55,7 +55,7 @@ def get_politicos():
     with driver.session() as session:
         results = session.run(MATCH_POLITICOS)
         if results:
-            return dumps(results.data())
+            return results.data()
         else:
             return None
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         "dietas": "0,00",
         "partido": "ICAR"
     }
-    print(create_politico(politico))
+    #print(create_politico(politico))
     #print(update_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f', 'LOIU'))
     #print(get_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f'))
     #print(get_politicos())

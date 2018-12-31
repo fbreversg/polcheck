@@ -1,9 +1,12 @@
+import persistence.politico_neo as politicos
+from flask import jsonify
 from flask_restful import Resource
 
 
 class PoliticosAPI(Resource):
-    """ PoliticosAPI skeleton """
+    """ PoliticosAPI """
 
     def get(self):
-        return {'PoliticosAPI': 'GET test OK'}
+        return politicos.get_politicos()
+
 
