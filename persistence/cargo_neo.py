@@ -1,6 +1,0 @@
-""" Cargo persistence """
-
-
-
-
-

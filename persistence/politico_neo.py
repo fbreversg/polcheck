@@ -8,8 +8,7 @@ DELETE_POLITICO_PARTIDO_RELATION = 'MATCH (p:Politico {uuid:{uuid}})-[r:PARTIDO]
 UPDATE_POLITICO_PARTIDO = 'MATCH (p:Politico),(x:Partido) ' \
                            'WHERE p.uuid={uuid} AND x.partido={partido}' \
                            'MERGE (p)<-[r:PARTIDO]-(x)' \
-                           'ON CREATE SET p.partido={partido}, p.partido_filtro=x.partido_filtro ' \
-                           'RETURN p'
+                           'ON CREATE SET p.partido={partido}, p.partido_filtro=x.partido_filtro'
 MATCH_POLITICO = 'MATCH (p:Politico {uuid:{uuid}}) RETURN PROPERTIES(p) AS `data`'
 CREATE_POLITICO = 'MATCH (x:Partido {partido:{politico}.partido}), (g:Genero {genero:{politico}.genero}),' \
                   '(c:Ccaa {ccaa:{politico}.ccaa}), (o:Cargo {cargo:{politico}.cargo}) ' \
@@ -23,6 +22,7 @@ CREATE_POLITICO = 'MATCH (x:Partido {partido:{politico}.partido}), (g:Genero {ge
                   'MERGE (p)<-[rc:CCAA]-(c) ' \
                   'MERGE (p)<-[ro:CARGO]-(o) ' \
                   'ON CREATE SET p.cargo_filtro=o.cargo_filtro'
+MATCH_POLITICOS = 'MATCH (p:Politico) RETURN PROPERTIES(p) AS `data` LIMIT 50'
 
 
 def get_politico(uuid):
@@ -41,14 +41,23 @@ def update_politico(uuid, partido):
         # Delete previous relation
         session.run(DELETE_POLITICO_PARTIDO_RELATION, uuid=uuid)
         # Create new relation and updates property partido_filtro from related node.
-        session.run(UPDATE_POLITICO_PARTIDO, uuid=uuid, partido=partido)
+        session.run(UPDATE_POLITICO_PARTIDO, uuid=uuid, partido=partido).single()
 
 
 def create_politico(politico):
 
     with driver.session() as session:
-        politico_node = session.run(CREATE_POLITICO, politico=politico)
-        print(politico_node)
+        session.run(CREATE_POLITICO, politico=politico).single()
+
+
+def get_politicos():
+
+    with driver.session() as session:
+        results = session.run(MATCH_POLITICOS)
+        if results:
+            return dumps(results.data())
+        else:
+            return None
 
 
 if __name__ == '__main__':
@@ -56,7 +65,7 @@ if __name__ == '__main__':
         "mensual": "3277,45",
         "institucion": "Ayuntamiento de Cartaya",
         "observa": "Dedicación Exclusiva",
-        "nombre": "JAJA",
+        "nombre": "BLA",
         "ccaa": "Andalucía",
         "sueldo_base": "45884,30",
         "genero": "Hombre",
@@ -65,7 +74,8 @@ if __name__ == '__main__':
         "dietas": "0,00",
         "partido": "ICAR"
     }
-    #create_politico(politico)
-    #update_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f', 'PP')
+    print(create_politico(politico))
+    #print(update_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f', 'LOIU'))
     #print(get_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f'))
+    #print(get_politicos())
 

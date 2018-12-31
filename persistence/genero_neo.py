@@ -1,3 +1,0 @@
-""" Genero persistence """
-
-
