@@ -48,16 +48,25 @@
 			"name": "/create",
 			"request": {
 				"method": "POST",
-				"header": [],
-				"body": {},
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mensual\": \"3277,45\",\n    \"institucion\": \"Ayuntamiento de Cartaya\",\n    \"observa\": \"Dedicación Exclusiva\",\n    \"nombre\": \"CHORRO\",\n    \"ccaa\": \"Andalucía\",\n    \"sueldo_base\": \"45884,30\",\n    \"genero\": \"Hombre\",\n    \"anual\": \"45884,30\",\n    \"cargo\": \"Alcalde\",\n    \"dietas\": \"0,00\",\n    \"partido\": \"ICAR\"\n}"
+				},
 				"url": {
-					"raw": "{{url}}/create/1",
+					"raw": "{{url}}/create",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"create",
-						"1"
+						"create"
 					]
 				}
 			},
@@ -73,13 +82,15 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/update/1",
+					"raw": "{{url}}/update/78debc00-0c54-11e9-8ef9-a45e60c1370f/partidos/Partido Popular",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"update",
-						"1"
+						"78debc00-0c54-11e9-8ef9-a45e60c1370f",
+						"partidos",
+						"Partido Popular"
 					]
 				}
 			},
@@ -117,14 +128,14 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/polcheck/politicos/1",
+					"raw": "{{url}}/polcheck/politicos/78debc00-0c54-11e9-8ef9-a45e60c1370f",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"polcheck",
 						"politicos",
-						"1"
+						"78debc00-0c54-11e9-8ef9-a45e60c1370f"
 					]
 				}
 			},
@@ -134,20 +145,25 @@
 			"name": "politico",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\n    \"mensual\": \"3277,45\",\n    \"institucion\": \"Ayuntamiento de Cartaya\",\n    \"observa\": \"Dedicación Exclusiva\",\n    \"nombre\": \"CHORRO\",\n    \"ccaa\": \"Andalucía\",\n    \"sueldo_base\": \"45884,30\",\n    \"genero\": \"Hombre\",\n    \"anual\": \"45884,30\",\n    \"cargo\": \"Alcalde\",\n    \"dietas\": \"0,00\",\n    \"partido\": \"ICAR\"\n}"
 				},
 				"url": {
-					"raw": "{{url}}/polcheck/politicos/1",
+					"raw": "{{url}}/polcheck/politicos",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"polcheck",
-						"politicos",
-						"1"
+						"politicos"
 					]
 				}
 			},
@@ -163,14 +179,16 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/polcheck/politicos/1",
+					"raw": "{{url}}/polcheck/politicos/78debc00-0c54-11e9-8ef9-a45e60c1370f/partidos/PSOE",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"polcheck",
 						"politicos",
-						"1"
+						"78debc00-0c54-11e9-8ef9-a45e60c1370f",
+						"partidos",
+						"PSOE"
 					]
 				}
 			},
