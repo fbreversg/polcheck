@@ -1,5 +1,5 @@
 """ Politicos persistence """
-
+"""
 from persistence.db_neo import driver
 from json import dumps
 
@@ -20,3 +20,4 @@ def get_politicos():
 if __name__ == '__main__':
     # TODO: Tests.
     print(get_politicos())
+"""
