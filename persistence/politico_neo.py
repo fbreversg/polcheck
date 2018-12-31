@@ -6,9 +6,10 @@ from json import dumps
 # QUERIES
 DELETE_POLITICO_PARTIDO_RELATION = 'MATCH (p:Politico {uuid:{uuid}})-[r:PARTIDO]-() DELETE r'
 UPDATE_POLITICO_PARTIDO = 'MATCH (p:Politico),(x:Partido) ' \
-                           'WHERE p.uuid={uuid} AND x.partido={partido}' \
-                           'MERGE (p)<-[r:PARTIDO]-(x)' \
-                           'ON CREATE SET p.partido={partido}, p.partido_filtro=x.partido_filtro'
+                          'WHERE p.uuid={uuid} AND x.partido={partido} ' \
+                          'MERGE (p)<-[r:PARTIDO]-(x) ' \
+                          'ON CREATE SET p.partido={partido}, p.partido_filtro=x.partido_filtro ' \
+                          'RETURN PROPERTIES(p) AS `data`'
 MATCH_POLITICO = 'MATCH (p:Politico {uuid:{uuid}}) RETURN PROPERTIES(p) AS `data`'
 CREATE_POLITICO = 'MATCH (x:Partido {partido:{politico}.partido}), (g:Genero {genero:{politico}.genero}),' \
                   '(c:Ccaa {ccaa:{politico}.ccaa}), (o:Cargo {cargo:{politico}.cargo}) ' \
@@ -21,7 +22,8 @@ CREATE_POLITICO = 'MATCH (x:Partido {partido:{politico}.partido}), (g:Genero {ge
                   'MERGE (p)<-[rg:GENERO]-(g) ' \
                   'MERGE (p)<-[rc:CCAA]-(c) ' \
                   'MERGE (p)<-[ro:CARGO]-(o) ' \
-                  'ON CREATE SET p.cargo_filtro=o.cargo_filtro'
+                  'ON CREATE SET p.cargo_filtro=o.cargo_filtro ' \
+                  'RETURN PROPERTIES(p) AS `data`'
 MATCH_POLITICOS = 'MATCH (p:Politico) RETURN PROPERTIES(p) AS `data` LIMIT 50'
 
 
@@ -41,13 +43,22 @@ def update_politico(uuid, partido):
         # Delete previous relation
         session.run(DELETE_POLITICO_PARTIDO_RELATION, uuid=uuid)
         # Create new relation and updates property partido_filtro from related node.
-        session.run(UPDATE_POLITICO_PARTIDO, uuid=uuid, partido=partido).single()
+        politico_record = session.run(UPDATE_POLITICO_PARTIDO, uuid=uuid, partido=partido).single()
+        if politico_record:
+            return politico_record.data()
+        else:
+            return None
 
 
 def create_politico(politico):
 
     with driver.session() as session:
-        session.run(CREATE_POLITICO, politico=politico).single()
+        politico_record = session.run(CREATE_POLITICO, politico=politico).single()
+        print()
+        if politico_record:
+            return politico_record.data()
+        else:
+            return None
 
 
 def get_politicos():
@@ -65,7 +76,7 @@ if __name__ == '__main__':
         "mensual": "3277,45",
         "institucion": "Ayuntamiento de Cartaya",
         "observa": "Dedicación Exclusiva",
-        "nombre": "BLA",
+        "nombre": "BLABLA",
         "ccaa": "Andalucía",
         "sueldo_base": "45884,30",
         "genero": "Hombre",
@@ -75,7 +86,7 @@ if __name__ == '__main__':
         "partido": "ICAR"
     }
     #print(create_politico(politico))
-    #print(update_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f', 'LOIU'))
+    print(update_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f', 'LOIU'))
     #print(get_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f'))
     #print(get_politicos())
 
