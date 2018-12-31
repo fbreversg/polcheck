@@ -20,7 +20,7 @@ api = Api(app)
 api.add_resource(CSVImportAPI, '/import', '/polcheck/import', endpoint='import')
 api.add_resource(PoliticosAPI, '/index', '/polcheck/politicos', endpoint='politicos')
 api.add_resource(PoliticoAPI, '/update/<id>/partidos/<partido>', '/polcheck/politicos/<id>/partidos/<partido>', methods=['PUT'], endpoint='update')
-api.add_resource(PoliticoAPI, '/create/<id>', methods=['POST'], endpoint='create')
+api.add_resource(PoliticoAPI, '/create', '/polcheck/politicos', methods=['POST'], endpoint='create')
 api.add_resource(PoliticoAPI, '/polcheck/politicos/<id>', endpoint='politico')
 
 
