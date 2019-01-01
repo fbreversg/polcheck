@@ -1,7 +1,6 @@
 """ Politico persistence """
 
 from persistence.db_neo import driver
-from json import dumps
 
 # QUERIES
 DELETE_POLITICO_PARTIDO_RELATION = 'MATCH (p:Politico {uuid:{uuid}})-[r:PARTIDO]-() DELETE r'
