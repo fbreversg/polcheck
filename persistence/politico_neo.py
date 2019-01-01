@@ -69,23 +69,3 @@ def get_politicos():
         else:
             return None
 
-
-if __name__ == '__main__':
-    politico = {
-        "mensual": "3277,45",
-        "institucion": "Ayuntamiento de Cartaya",
-        "observa": "Dedicación Exclusiva",
-        "nombre": "BLABLA",
-        "ccaa": "Andalucía",
-        "sueldo_base": "45884,30",
-        "genero": "Hombre",
-        "anual": "45884,30",
-        "cargo": "Alcalde",
-        "dietas": "0,00",
-        "partido": "ICAR"
-    }
-    #print(create_politico(politico))
-    print(update_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f', 'LOIU'))
-    #print(get_politico('78debc00-0c54-11e9-8ef9-a45e60c1370f'))
-    #print(get_politicos())
-
