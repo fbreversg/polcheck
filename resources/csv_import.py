@@ -1,4 +1,5 @@
 import os
+import persistence.csv_import_neo as csv_import_neo
 from common.config import UPLOAD_DIR
 from flask_restful import Resource
 from flask import abort, request
@@ -18,11 +19,11 @@ class CSVImportAPI(Resource):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_DIR, filename))
-            # if validacion(CSV):
-                # cargaEnBD
-            # else:
-            #    abort(422)
-            return {'Result': 'CSV cargado con exito.'}, 200
+            try:
+                csv_import_neo.import_csv()
+                return {'Result': 'CSV populated BD succesfully.'}, 201
+            except Exception as e:
+                return {'Error': "Malformed or incorrect CSV format."}, 400
 
 
 def allowed_file(filename):
