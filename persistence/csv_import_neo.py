@@ -56,8 +56,6 @@ def import_csv():
         # POLITICO node creation
         session.run(CREATE_POLITICO_NODE_QUERY, csvfile=CSV_FILE)
 
-        #session.run(CREATE_POLITICO_RELATION, csvfile=CSV_FILE)
-
 
 if __name__ == '__main__':
     import_csv()
