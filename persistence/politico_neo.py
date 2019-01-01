@@ -10,6 +10,12 @@ UPDATE_POLITICO_PARTIDO = 'MATCH (p:Politico),(x:Partido) ' \
                           'ON CREATE SET p.partido={partido}, p.partido_filtro=x.partido_filtro ' \
                           'RETURN PROPERTIES(p) AS `data`'
 MATCH_POLITICO = 'MATCH (p:Politico {uuid:{uuid}}) RETURN PROPERTIES(p) AS `data`'
+MATCH_POLITICO_WITHOUT_UUID = 'MATCH (p:Politico {nombre: {politico}.nombre, mensual: {politico}.mensual, ' \
+                              'institucion: {politico}.institucion, observa: {politico}.observa, ' \
+                              'ccaa: {politico}.ccaa, sueldo_base: {politico}.sueldo_base, genero: {politico}.genero, ' \
+                              'anual: {politico}.anual, cargo: {politico}.cargo, dietas: {politico}.dietas, ' \
+                              'partido: {politico}.partido}) ' \
+                              'RETURN PROPERTIES(p) AS `data`'
 CREATE_POLITICO = 'MATCH (x:Partido {partido:{politico}.partido}), (g:Genero {genero:{politico}.genero}),' \
                   '(c:Ccaa {ccaa:{politico}.ccaa}), (o:Cargo {cargo:{politico}.cargo}) ' \
                   'MERGE (p:Politico {nombre: {politico}.nombre, mensual: {politico}.mensual, ' \
@@ -23,6 +29,7 @@ CREATE_POLITICO = 'MATCH (x:Partido {partido:{politico}.partido}), (g:Genero {ge
                   'MERGE (p)<-[ro:CARGO]-(o) ' \
                   'ON CREATE SET p.cargo_filtro=o.cargo_filtro ' \
                   'RETURN PROPERTIES(p) AS `data`'
+DELETE_POLITICO = 'MATCH (p:Politico {uuid:{uuid}}) DETACH DELETE p'
 MATCH_POLITICOS = 'MATCH (p:Politico) RETURN PROPERTIES(p) AS `data` LIMIT 50'
 
 
@@ -53,11 +60,17 @@ def create_politico(politico):
 
     with driver.session() as session:
         politico_record = session.run(CREATE_POLITICO, politico=politico).single()
-        print()
         if politico_record:
-            return politico_record.data()
+            # Little workaround to get the UUID since its creation is lazy and needs another operation after create.
+            return session.run(MATCH_POLITICO_WITHOUT_UUID, politico=politico).single()
         else:
             return None
+
+
+def delete_politico(uuid):
+
+    with driver.session() as session:
+        session.run(DELETE_POLITICO, uuid=uuid)
 
 
 def get_politicos():
@@ -68,4 +81,3 @@ def get_politicos():
             return results.data()
         else:
             return None
-

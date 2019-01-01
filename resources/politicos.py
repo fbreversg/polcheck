@@ -6,6 +6,10 @@ class PoliticosAPI(Resource):
     """ PoliticosAPI """
 
     def get(self):
-        return politicos.get_politicos()
+        politicos_data = politicos.get_politicos()
+        if politicos_data:
+            return politicos_data
+        else:
+            return {}, 404
 
 

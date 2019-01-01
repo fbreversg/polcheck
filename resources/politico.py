@@ -20,12 +20,18 @@ class PoliticoAPI(Resource):
     # Improvement
     def get(self, id):
         """ GET politico"""
-        return politico_neo.get_politico(id)
+        politico_data = politico_neo.get_politico(id)
+        if politico_data:
+            return politico_data
+        else:
+            return {}, 404
         # TODO: Recuperar urls.
 
     # Improvement
     def delete(self, id):
-        return {'PoliticoAPI': 'DELETE test OK'}
+        """ DELETE politico"""
+        politico_neo.delete_politico(id)
+        return {}, 204
 
     def  __politico_validate(self):
         """ Create form validation """
