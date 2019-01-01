@@ -19,12 +19,20 @@ CREATE_PARTIDO_NODE_QUERY = 'LOAD CSV WITH HEADERS FROM "file:///tmp/import.csv"
 
 
 CREATE_POLITICO_NODE_QUERY = 'LOAD CSV WITH HEADERS FROM "file:///tmp/import.csv" AS row FIELDTERMINATOR ";"' \
-                        'CREATE (:Politico {nombre: row.TITULAR, partido: row.PARTIDO, ' \
+                             'MATCH (g:Genero {genero:row.GENERO}), (c:Ccaa {ccaa:row.CCAA}), ' \
+                             '(o:Cargo {cargo:row.CARGO}), (x:Partido {partido:row.PARTIDO, partido_filtro: row.PARTIDO_PARA_FILTRO})' \
+                             'MERGE (p:Politico {nombre: row.TITULAR, partido: row.PARTIDO, ' \
                              'partido_filtro: row.PARTIDO_PARA_FILTRO,' \
                              'genero: row.GENERO, cargo: row.CARGO, cargo_filtro: row.CARGO_PARA_FILTRO,' \
-                             'institucion: row.INSTITUCION, ccaa: row.CCAA, sueldo_base: row.SUELDOBASE_SUELDO,' \
-                             'mensual: row.RETRIBUCIONMENSUAL, dietas: row.OTRASDIETASEINDEMNIZACIONES_SUELDO,' \
-                             'anual: row.RETRIBUCIONANUAL, observa: row.OBSERVACIONES});'
+                             'institucion: row.INSTITUCION, ccaa: row.CCAA})' \
+                             'ON CREATE SET ' \
+                             'p.sueldo_base=row.SUELDOBASE_SUELDO, p.mensual=row.RETRIBUCIONMENSUAL, ' \
+                             'p.dietas=row.OTRASDIETASEINDEMNIZACIONES_SUELDO,' \
+                             'p.anual=row.RETRIBUCIONANUAL, p.observa=row.OBSERVACIONES ' \
+                             'MERGE (p)<-[rg:GENERO]-(g)' \
+                             'MERGE (p)<-[rc:CCAA]-(c)' \
+                             'MERGE (p)<-[ro:CARGO]-(o)' \
+                             'MERGE (p)<-[rp:PARTIDO]-(x)'
 
 
 def import_csv():
@@ -47,6 +55,8 @@ def import_csv():
 
         # POLITICO node creation
         session.run(CREATE_POLITICO_NODE_QUERY, csvfile=CSV_FILE)
+
+        #session.run(CREATE_POLITICO_RELATION, csvfile=CSV_FILE)
 
 
 if __name__ == '__main__':
