@@ -41,7 +41,8 @@ com.graphaware.module.UIDM.1=com.graphaware.module.uuid.UuidBootstrapper
 Permite configurar la carpeta donde se alojará el csv y tamaño máximo.
 
 >UPLOAD_DIR = '/tmp'
-MAX_UPLOAD_SIZE = 16 * 1024 * 1024  # 16MB
+
+>MAX_UPLOAD_SIZE = 16 * 1024 * 1024  # 16MB
 
 **Variables de entorno para conectividad con NEO4J**
 
