@@ -82,7 +82,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/update/78debc00-0c54-11e9-8ef9-a45e60c1370f/partidos/Partido Popular",
+					"raw": "{{url}}/update/78debc00-0c54-11e9-8ef9-a45e60c1370f/partidos/LOIU",
 					"host": [
 						"{{url}}"
 					],
@@ -90,7 +90,7 @@
 						"update",
 						"78debc00-0c54-11e9-8ef9-a45e60c1370f",
 						"partidos",
-						"Partido Popular"
+						"LOIU"
 					]
 				}
 			},
