@@ -1,5 +1,4 @@
 """ CSV Import ETL """
-from common.config import CSV_FILE
 from persistence.db_neo import driver
 
 CREATE_CARGO_NODE_QUERY = 'LOAD CSV WITH HEADERS FROM "file:///tmp/import.csv" AS row FIELDTERMINATOR ";"' \
@@ -35,26 +34,26 @@ CREATE_POLITICO_NODE_QUERY = 'LOAD CSV WITH HEADERS FROM "file:///tmp/import.csv
                              'MERGE (p)<-[rp:PARTIDO]-(x)'
 
 
-def import_csv():
+def import_csv(csv_file):
 
     # Comment dbms.directories.import=import for being able to get the csv from any folder.
     # A better aproach would be using neo4j tools for import but was mandatory to create a import endpoint.
     with driver.session() as session:
 
         # CARGO node creation
-        session.run(CREATE_CARGO_NODE_QUERY, csvfile=CSV_FILE)
+        session.run(CREATE_CARGO_NODE_QUERY, csvfile=csv_file)
 
         # CCAA node creation
-        session.run(CREATE_CCAA_NODE_QUERY, csvfile=CSV_FILE)
+        session.run(CREATE_CCAA_NODE_QUERY, csvfile=csv_file)
 
         # GENERO node creation
-        session.run(CREATE_GENERO_NODE_QUERY, csvfile=CSV_FILE)
+        session.run(CREATE_GENERO_NODE_QUERY, csvfile=csv_file)
 
         # GENERO node creation
-        session.run(CREATE_PARTIDO_NODE_QUERY, csvfile=CSV_FILE)
+        session.run(CREATE_PARTIDO_NODE_QUERY, csvfile=csv_file)
 
         # POLITICO node creation
-        session.run(CREATE_POLITICO_NODE_QUERY, csvfile=CSV_FILE)
+        session.run(CREATE_POLITICO_NODE_QUERY, csvfile=csv_file)
 
 
 if __name__ == '__main__':

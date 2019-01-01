@@ -20,7 +20,7 @@ class CSVImportAPI(Resource):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_DIR, filename))
             try:
-                csv_import_neo.import_csv()
+                csv_import_neo.import_csv(os.path.join(UPLOAD_DIR, filename))
                 return {'Result': 'CSV populated BD succesfully.'}, 201
             except Exception as e:
                 return {'Error': "Malformed or incorrect CSV format."}, 400
